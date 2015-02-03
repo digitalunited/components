@@ -34,7 +34,9 @@ abstract class Component
     private function getDefaultValuesFromFields()
     {
         $return = [];
-        foreach($this->getFields() as $field) {
+        $componentConfig = $this->getComponentConfig();
+        $params = isset($componentConfig['params']) ? $componentConfig['params'] : [];
+        foreach($params as $field) {
             $return[$this->getFieldName($field)] = $this->getFieldDefaultValue($field);
         }
 
@@ -81,8 +83,6 @@ abstract class Component
     /**
      * @return array vc-compatible param declaration
      */
-    abstract protected function getFields();
-    abstract protected function getDisplayName();
-    abstract protected function getDescription();
+    abstract protected function getComponentConfig();
 }
 ?>

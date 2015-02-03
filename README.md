@@ -34,42 +34,35 @@ namespace Component;
 
 class Text extends \DigitalUnited\Components\Component
 {
-    // Will be displayed as the VC module name in admin
-    protected function getDisplayName(){
-        return __('Text', 'components');
-    }
+    // This is a VC-mapping array
+    // https://wpbakery.atlassian.net/wiki/pages/viewpage.action?pageId=524332
 
-
-    // Will be displayed as the VC module description in admin
-    protected function getDescription()
+    protected function getComponentConfig()
     {
-        return __('Standard textmodul', 'components');
-    }
-
-    // This fields will be available in the VC admin module as well as
-    // sanetized if you use the component as a standalone shortcode
-    protected function getFields()
-    {
-        return array(
-            array(
-               "type" => "textfield",
-               "holder" => "div",
-               "class" => "",
-               "heading" => __( "Headline", "components" ),
-               "param_name" => "headline",
-               "value" => "",
-               "description" => ""
-           ),
-            array(
-               "type" => "textarea_html",
-               "holder" => "div",
-               "class" => "",
-               "heading" => __( "Content", "components" ),
-               "param_name" => "content",
-               "value" => "",
-               "description" => ""
-           ),
-       );
+        return [
+            'name' => __('Text', 'components'),
+            'description' => __('Standard textmodul', 'components'),
+            'params' => [
+                [
+                    "type" => "textfield",
+                    "holder" => "div",
+                    "class" => "",
+                    "heading" => __( "Headline", "components" ),
+                    "param_name" => "headline",
+                    "value" => "",
+                    "description" => ""
+                ],
+                [
+                    "type" => "textarea_html",
+                    "holder" => "div",
+                    "class" => "",
+                    "heading" => __( "Content", "components" ),
+                    "param_name" => "content",
+                    "value" => "",
+                    "description" => ""
+                ],
+            ]
+        ];
     }
 
     // If you want to you can have diferent views for deferent cases.

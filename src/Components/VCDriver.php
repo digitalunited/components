@@ -13,16 +13,13 @@ trait VCDriver
 
     private function getVcMappingArgs()
     {
-        $params = $this->getFields();
-        $showSettingsOnCreate = (boolean) count($params);
-        return [
+        $componentConfig = $this->getComponentConfig();
+
+        return array_merge([
             'base' => $this->getShortCodeIdentifier(),
-            'name' => $this->getDisplayName(),
-            'description' => $this->getDescription(),
-            'show_settings_on_create' => $showSettingsOnCreate,
+            'show_settings_on_create' => isset($componentConfig['params']) && count($componentConfig['params']),
             'class' => $this->generateClassName(),
-            'params' => $params,
-        ];
+        ], $componentConfig);
     }
 
     private function generateClassName()
