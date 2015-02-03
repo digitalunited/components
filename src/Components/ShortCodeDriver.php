@@ -6,14 +6,21 @@ trait ShortCodeDriver
     private function registerShortCode()
     {
         $calledClass = get_called_class();
-        add_shortcode($calledClass, array($calledClass, 'renderShortcode'));
+        add_shortcode($this->getShortCodeIdentifier(), array($calledClass, 'renderShortcode'));
     }
+
+    private function getShortCodeIdentifier()
+    {
+        $className = get_called_class();
+
+        //strip namespace
+        return str_replace('\\', '', $className);
+    }
+
 
     static public function renderShortCode($atts = [], $content = '')
     {
-        $calledClass = get_called_class();
-
-        return (new $calledClass($atts, $content))->render();
+        return (new static($atts, $content))->render();
     }
 }
 ?>

@@ -82,5 +82,7 @@ abstract class Component
      * @return array vc-compatible param declaration
      */
     abstract protected function getFields();
+    abstract protected function getDisplayName();
+    abstract protected function getDescription();
 }
 ?>
