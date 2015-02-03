@@ -3,7 +3,6 @@
   "description": "Component manager",
   "keywords": ["wordpress", "plugin"],
   "homepage": "https://github.com/digitalunited/components",
-  "version": "0.0.1",
   "license": "MIT",
   "authors": [
     {
