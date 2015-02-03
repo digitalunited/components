@@ -1,0 +1,3 @@
+*.log
+vendor
+index_cache

@@ -1,0 +1,28 @@
+{
+  "name": "digitalunited/components",
+  "description": "Component manager",
+  "keywords": ["wordpress", "plugin"],
+  "homepage": "https://github.com/digitalunited/components",
+  "version": "0.0.1",
+  "license": "MIT",
+  "authors": [
+    {
+    "name": "Mikael Engström",
+    "email": "mikael.engstrom@careofhaus.se",
+    "homepage": "http://careofhaus.se"
+    }
+  ],
+  "type": "wordpress-plugin",
+  "autoload"   : {
+    "psr-4": {
+      "DigitalUnited\\Components\\": "src/Components"
+    }
+  },
+  "repositories": {
+    "packagist": { "url": "https://packagist.org", "type": "composer" }
+  },
+  "require"    : {
+    "php": ">=5.4",
+    "composer/installers": "~1.0"
+  }
+}
