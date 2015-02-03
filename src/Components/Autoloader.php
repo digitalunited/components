@@ -35,10 +35,10 @@ class Autoloader
 
     private function getComponentFolderNames()
     {
-        $componentFolders = scandir($this->componentsBasePath);
-
-        // Removes . and .. from scandir result
-        $componentFolders = array_slice($componentFolders, 2);
+        $componentFolders = [];
+        foreach(glob($this->componentsBasePath.'/*', GLOB_ONLYDIR) as $absPathToFolder) {
+            $componentFolders[] = basename($absPathToFolder);
+        }
 
         return $componentFolders;
     }
