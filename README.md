@@ -3,6 +3,7 @@
 # Installation
 1. Install via composer
 2. Activate plugin
+3. Configure grunt
 
 # Usage
 A component folder should be placed in the theme-directory following this structure:
@@ -27,7 +28,7 @@ Every component will have their short-code registered and vc_mapping set up.
 
 ## component.php
 
-a component.php have the following structure:
+A VCComponent have the following structure:
 
 ```
 namespace Component;
@@ -89,5 +90,32 @@ class Text extends \DigitalUnited\Components\VcComponent
 ?>
 ```
 
+A Standard component have the following structure:
+
+
+```
+namespace Component;
+
+class Sidebar extends \DigitalUnited\Components\Component
+{
+    // Return key value pair with the accepted parameters for this
+    // view file
+    protected function getParams() {
+        return [
+            'param1' => 'default value1',
+            'param2' => ''
+        ];
+    }
+
+    //Same as a VcComponent
+    protected function getViewFileName() { ... }
+    protected function sanetizeDataForRendering($data) { ... }
+    public function main() { ... }
+}
+?>
+```
+
+
 ## Less and coffe, assets
-@todo
+Could be handled with with Grunt or whatever.
+See https://github.com/digitalunited/roots for example
