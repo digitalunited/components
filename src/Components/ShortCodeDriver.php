@@ -9,7 +9,7 @@ trait ShortCodeDriver
         add_shortcode($this->getShortCodeIdentifier(), array($calledClass, 'renderShortcode'));
     }
 
-    private function getShortCodeIdentifier()
+    protected function getShortCodeIdentifier()
     {
         $className = get_called_class();
 

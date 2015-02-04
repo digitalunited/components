@@ -4,7 +4,6 @@ namespace DigitalUnited\Components;
 abstract class Component
 {
     use ShortCodeDriver;
-    use VCDriver;
 
     private $params;
     private $content;
@@ -12,14 +11,14 @@ abstract class Component
     public function __construct($params = [], $content = '')
     {
         $this->content = $content;
-        $this->params = $this->sanetizeParams($params);
+        $this->params = $params;
     }
 
-    private function sanetizeParams($params)
+    private function sanetizedParams()
     {
         $params = shortcode_atts(
-            $this->getDefaultValuesFromFields(),
-            $params,
+            $this->getParams(),
+            $this->params,
             get_called_class()
         );
 
@@ -31,27 +30,15 @@ abstract class Component
         return $this->sanetizeDataForRendering($params);
     }
 
-    private function getDefaultValuesFromFields()
-    {
-        $return = [];
-        $componentConfig = $this->getComponentConfig();
-        $params = isset($componentConfig['params']) ? $componentConfig['params'] : [];
-        foreach($params as $field) {
-            $return[$this->getFieldName($field)] = $this->getFieldDefaultValue($field);
-        }
-
-        return $return;
-    }
-
     public function register()
     {
         $this->registerShortCode();
-        $this->registerPageBuilder();
+        $this->main();
     }
 
     public function render()
     {
-        return TemplateEngine::render($this->getViewPath(), $this->params);
+        return TemplateEngine::render($this->getViewPath(), $this->sanetizedParams());
     }
 
     private function getViewPath()
@@ -67,6 +54,12 @@ abstract class Component
         return 'view.php';
     }
 
+    /*
+     * @return array   Key value pair with acceptet params/default
+     *                 values
+     */
+    abstract protected function getParams();
+
     /**
      * Components can override this class to modify parameters
      * before they are sent to rendering engine.
@@ -81,8 +74,11 @@ abstract class Component
     }
 
     /**
-     * @return array vc-compatible param declaration
+     * Runs on ->register. Used to implement logic in top class
+     *
      */
-    abstract protected function getComponentConfig();
+    public function main()
+    {
+    }
 }
 ?>

@@ -32,7 +32,7 @@ a component.php have the following structure:
 ```
 namespace Component;
 
-class Text extends \DigitalUnited\Components\Component
+class Text extends \DigitalUnited\Components\VcComponent
 {
     // This is a VC-mapping array
     // https://wpbakery.atlassian.net/wiki/pages/viewpage.action?pageId=524332
@@ -78,6 +78,12 @@ class Text extends \DigitalUnited\Components\Component
     protected function sanetizeDataForRendering($data)
     {
         return $data;
+    }
+
+
+    // May be used to implement logic such as post-type registering or whatever
+    public function main()
+    {
     }
 }
 ?>
