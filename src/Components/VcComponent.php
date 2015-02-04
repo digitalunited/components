@@ -55,7 +55,8 @@ abstract class VcComponent extends Component
 
     private function getFieldDefaultValue($field)
     {
-        return $field['value'];
+        $stdOrValueParam = isset($field['std']) ? $field['std'] : $field['value'];
+        return is_array($stdOrValueParam) ? current($stdOrValueParam) : $stdOrValueParam;
     }
 }
 ?>
