@@ -3,7 +3,7 @@ namespace DigitalUnited\Components;
 
 class TemplateEngine
 {
-    static public function render($file, $params = [])
+    public static function render($file, $params = [])
     {
         extract($params);
 
@@ -14,6 +14,4 @@ class TemplateEngine
 
         return $result;
     }
-
 }
-?>

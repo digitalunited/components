@@ -28,7 +28,7 @@ class Autoloader
 
     private function getComponentFilePaths()
     {
-        return array_map(function ($componentFolder){
+        return array_map(function ($componentFolder) {
             return implode('/', [$this->componentsBasePath,$componentFolder,'component.php']);
         }, $this->getComponentFolderNames());
     }
@@ -36,7 +36,7 @@ class Autoloader
     private function getComponentFolderNames()
     {
         $componentFolders = [];
-        foreach(glob($this->componentsBasePath.'/*', GLOB_ONLYDIR) as $absPathToFolder) {
+        foreach (glob($this->componentsBasePath.'/*', GLOB_ONLYDIR) as $absPathToFolder) {
             $componentFolders[] = basename($absPathToFolder);
         }
 
@@ -59,14 +59,14 @@ class Autoloader
         $className = '';
 
         $fileHandler = fopen($filePath, 'r');
-        while($line = fgets($fileHandler)) {
+        while ($line = fgets($fileHandler)) {
             if (!$nameSpace) {
-                if(preg_match('/namespace\s+([^;]+)/i', $line, $matches)){
+                if (preg_match('/namespace\s+([^;]+)/i', $line, $matches)) {
                     $nameSpace = $matches[1];
                 }
             }
 
-            if(preg_match('/class\s+([^\s]+)/i', $line, $matches)){
+            if (preg_match('/class\s+([^\s]+)/i', $line, $matches)) {
                 $className = $matches[1];
                 break;
             }
@@ -83,11 +83,11 @@ class Autoloader
         }
     }
 
-    public function registerComponents() {
-        foreach($this->componentClassNames as $className) {
+    public function registerComponents()
+    {
+        foreach ($this->componentClassNames as $className) {
             $component = new $className;
             $component->register();
         }
     }
 }
-?>

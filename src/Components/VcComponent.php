@@ -7,7 +7,7 @@ abstract class VcComponent extends Component
     {
         parent::register();
         $vcMapping = $this->getVcMappingArgs();
-        add_action('vc_before_init', function() use ($vcMapping){
+        add_action('vc_before_init', function() use ($vcMapping) {
             vc_map($vcMapping);
         });
     }
@@ -41,7 +41,7 @@ abstract class VcComponent extends Component
         $componentConfig = $this->getComponentConfig();
         $params = isset($componentConfig['params']) ? $componentConfig['params'] : [];
 
-        foreach($params as $field) {
+        foreach ($params as $field) {
             $return[$this->getFieldName($field)] = $this->getFieldDefaultValue($field);
         }
 
@@ -64,4 +64,3 @@ abstract class VcComponent extends Component
         return empty($field['value']) ? '' : $field['value'];
     }
 }
-?>

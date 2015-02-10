@@ -23,4 +23,3 @@ trait ShortCodeDriver
         return (new static($atts, $content))->render();
     }
 }
-?>
