@@ -80,7 +80,12 @@ class Text extends \DigitalUnited\Components\VcComponent
     {
         return $data;
     }
-
+    
+    // Override the classes the wrapping div will obtain.
+    // parent::getWrapperDivClasses() returns ['namespace-componentname']
+    protected function getWrapperDivClasses()
+    {
+    }
 
     // May be used to implement logic such as post-type registering or whatever
     public function main()
@@ -115,6 +120,18 @@ class Sidebar extends \DigitalUnited\Components\Component
 ?>
 ```
 
+## View
+In the views, all values returned from "sanetizeDataForRendering" will be accessible.
+
+eg. ['foo' => 'bar'] will be available like
+```
+<?= $foo // outputs 'bar' ?>
+```
+
+You may also use the component class, referenced as $this. eg:
+```
+<?= $this->myFancyPublicFunction() ?>
+```
 
 ## Less and coffe, assets
 Could be handled with with Grunt or whatever.
