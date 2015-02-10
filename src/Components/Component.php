@@ -5,7 +5,7 @@ abstract class Component
 {
     use ShortCodeDriver;
 
-    private $params;
+    protected $params;
     private $content;
 
     public function __construct($params = [], $content = '')
@@ -26,6 +26,8 @@ abstract class Component
         // in the rendering engine.
         $params['content'] = $this->content ? $this->content : '';
 
+        $params['this'] = &$this;
+
         // Apply local component overrides to params
         return $this->sanetizeDataForRendering($params);
     }
@@ -37,6 +39,25 @@ abstract class Component
     }
 
     public function render()
+    {
+        return $this->addWrapperDiv($this->renderTemplate());
+    }
+
+    private function addWrapperDiv($innerMarkup)
+    {
+        $classes = implode(' ', $this->getWrapperDivClasses());
+        return "<div class='{$classes}'>$innerMarkup</div>";
+    }
+
+    protected function getWrapperDivClasses()
+    {
+        $className = get_called_class();
+        $className = str_replace('\\', '-', $className);
+        $className = strtolower($className);
+        return [$className];
+    }
+
+    private function renderTemplate()
     {
         return TemplateEngine::render($this->getViewPath(), $this->sanetizedParams());
     }
