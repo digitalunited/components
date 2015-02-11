@@ -63,7 +63,7 @@ abstract class Component
         return 'view.php';
     }
 
-    private function getSanetizedParams()
+    protected function getSanetizedParams()
     {
         $params = shortcode_atts(
             $this->getDefaultParams(),
