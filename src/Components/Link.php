@@ -27,7 +27,7 @@ class Link
 
         $this->target = isset($args['target']) && $args['target']
             ? trim($args['target'])
-            : '';
+            : '_self';
     }
 
     private function unserializeString($linkString)
