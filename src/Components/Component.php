@@ -66,7 +66,7 @@ abstract class Component
     private function getSanetizedParams()
     {
         $params = shortcode_atts(
-            $this->getDefaultParamValues(),
+            $this->getDefaultParams(),
             $this->params,
             get_called_class()
         );
@@ -85,7 +85,7 @@ abstract class Component
      * @return array   Key value pair with acceptet params/default
      *                 values
      */
-    abstract protected function getDefaultParamValues();
+    abstract protected function getDefaultParams();
 
     /**
      * Components can override this class to modify parameters

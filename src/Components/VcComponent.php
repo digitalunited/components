@@ -35,7 +35,7 @@ abstract class VcComponent extends Component
         return 'component-'.end($exp);
     }
 
-    protected function getDefaultParamValues()
+    protected function getDefaultParams()
     {
         $return = [];
         $componentConfig = $this->getComponentConfig();

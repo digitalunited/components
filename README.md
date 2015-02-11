@@ -105,7 +105,7 @@ class Sidebar extends \DigitalUnited\Components\Component
 {
     // Return key value pair with the accepted parameters for this
     // view file
-    protected function getDefaultParamValues() {
+    protected function getDefaultParams() {
         return [
             'param1' => 'default value1',
             'param2' => ''
