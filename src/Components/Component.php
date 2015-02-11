@@ -39,7 +39,7 @@ abstract class Component
         $className = get_called_class();
         $className = str_replace('\\', '-', $className);
         $className = strtolower($className);
-        return [$className];
+        return [$className, 'component'];
     }
 
     private function renderTemplate()

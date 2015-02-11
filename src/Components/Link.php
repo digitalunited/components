@@ -9,13 +9,25 @@ class Link
 
     public function __construct($args)
     {
-        if (!is_array($args)) {
+        if (is_string($args)) {
             $args = $this->unserializeString($args);
         }
 
-        $this->url = isset($args['url']) ? trim($args['url']) : '';
-        $this->title = isset($args['title']) ? trim($args['title']) : '';
-        $this->target = isset($args['target']) ? trim($args['target']) : '_self';
+        if (is_object($args)) {
+            $args = (array)$args;
+        }
+
+        $this->url = isset($args['url']) && $args['url']
+            ? trim($args['url'])
+            : '';
+
+        $this->title = isset($args['title']) && $args['title']
+            ? trim($args['title'])
+            : $this->url;
+
+        $this->target = isset($args['target']) && $args['target']
+            ? trim($args['target'])
+            : '';
     }
 
     private function unserializeString($linkString)
