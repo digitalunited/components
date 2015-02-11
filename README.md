@@ -128,9 +128,9 @@ eg. ['foo' => 'bar'] will be available like
 <?= $foo // outputs 'bar' ?>
 ```
 
-You may also use the component class, referenced as $this. eg:
+You may also use the component class, referenced as $component. eg:
 ```
-<?= $this->myFancyPublicFunction() ?>
+<?= $component->myFancyPublicFunction() ?>
 ```
 
 ## Less and coffe, assets

@@ -75,7 +75,7 @@ abstract class Component
         // in the rendering engine.
         $params['content'] = $this->content ? $this->content : '';
 
-        $params['this'] = &$this;
+        $params['component'] = &$this;
 
         // Apply local component overrides to params
         return $this->sanetizeDataForRendering($params);
