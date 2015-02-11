@@ -46,7 +46,7 @@ abstract class Component
     {
         return TemplateEngine::render(
             $this->getViewPath(),
-            $this->sanetizedParams()
+            $this->getSanetizedParams()
         );
     }
 
@@ -63,10 +63,10 @@ abstract class Component
         return 'view.php';
     }
 
-    private function sanetizedParams()
+    private function getSanetizedParams()
     {
         $params = shortcode_atts(
-            $this->getParams(),
+            $this->getDefaultParamValues(),
             $this->params,
             get_called_class()
         );
@@ -85,7 +85,7 @@ abstract class Component
      * @return array   Key value pair with acceptet params/default
      *                 values
      */
-    abstract protected function getParams();
+    abstract protected function getDefaultParamValues();
 
     /**
      * Components can override this class to modify parameters
