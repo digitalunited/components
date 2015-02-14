@@ -64,11 +64,7 @@ abstract class Component
     }
 
     /**
-     * Shorthand accessor for sanetized params
-     *
-     * $theme = $this->param('theme', 'fallback') is equalen to:
-     * $params = $this->getSanetizedParams();
-     * $theme =  $params['theme'];
+     * return param value if existing
      *
      * @param $paramName String     Parameter index
      *
@@ -76,11 +72,14 @@ abstract class Component
      */
     protected function param($paramName)
     {
-        $params = $this->getSanetizedParams();
-        return $params[$paramName];
+        $fallbacks = $this->getDefaultParams();
+
+        return isset($this->params[$paramName])
+            ? $this->params[$paramName]
+            : $fallbacks[$paramName];
     }
 
-    protected function getSanetizedParams()
+    private function getSanetizedParams()
     {
         $params = shortcode_atts(
             $this->getDefaultParams(),
