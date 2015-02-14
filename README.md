@@ -85,6 +85,8 @@ class Text extends \DigitalUnited\Components\VcComponent
     // parent::getWrapperDivClasses() returns ['namespace-componentname']
     protected function getWrapperDivClasses()
     {
+        //You may access params through ->param
+        return $this->param('headline') ? 'has-headline' : '';
     }
 
     // May be used to implement logic such as post-type registering or whatever
@@ -119,9 +121,6 @@ class Sidebar extends \DigitalUnited\Components\Component
 }
 ?>
 ```
-
-You may fetch params in the component.php with
-$this->param('paramName') if you want to.
 
 ## View
 In the views, all values returned from "sanetizeDataForRendering" will be accessible.
