@@ -125,4 +125,9 @@ abstract class Component
     public function main()
     {
     }
+
+    public function __toString()
+    {
+        return $this->render();
+    }
 }
