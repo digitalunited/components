@@ -63,6 +63,23 @@ abstract class Component
         return 'view.php';
     }
 
+    /**
+     * Shorthand accessor for sanetized params
+     *
+     * $theme = $this->param('theme', 'fallback') is equalen to:
+     * $params = $this->getSanetizedParams();
+     * $theme =  $params['theme'];
+     *
+     * @param $paramName String     Parameter index
+     *
+     * @return Mixed Param value
+     */
+    protected function param($paramName)
+    {
+        $params = $this->getSanetizedParams();
+        return $params[$paramName];
+    }
+
     protected function getSanetizedParams()
     {
         $params = shortcode_atts(

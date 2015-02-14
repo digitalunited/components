@@ -120,6 +120,9 @@ class Sidebar extends \DigitalUnited\Components\Component
 ?>
 ```
 
+You may fetch params in the component.php with
+$this->param('paramName') if you want to.
+
 ## View
 In the views, all values returned from "sanetizeDataForRendering" will be accessible.
 
