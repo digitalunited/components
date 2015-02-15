@@ -74,6 +74,12 @@ abstract class Component
     {
         $fallbacks = $this->getDefaultParams();
 
+        if ($paramName == 'content') {
+            return $this->content
+                ? $this->content
+                : $fallbacks['content'];
+        }
+
         return isset($this->params[$paramName])
             ? $this->params[$paramName]
             : $fallbacks[$paramName];
