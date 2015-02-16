@@ -32,6 +32,12 @@ class Link
 
     private function unserializeString($linkString)
     {
+        if ($linkString === '||') {
+            return [
+                'url' => '',
+            ];
+        }
+
         $maybeUnserialized = vc_build_link($linkString);
         return array_filter($maybeUnserialized)
             ? $maybeUnserialized
