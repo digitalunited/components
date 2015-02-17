@@ -70,12 +70,27 @@ abstract class Component
         $reflector = new \ReflectionClass(get_class($this));
         $componentPath = dirname($reflector->getFileName());
 
-        return $componentPath.'/'.$this->getViewFileName();
+        $viewFilePaths = [];
+        $viewFilePaths[] = $componentPath.'/'.$this->getViewFileName();
+        if (isset($this->params['theme'])) {
+            $viewFilePaths[] = $componentPath.'/'.$this->params['theme'].'.view.php';
+        }
+        $viewFilePaths[] = $componentPath.'/'.'view.php';
+
+        foreach ($viewFilePaths as $viewFilePath) {
+            if (file_exists($viewFilePath) && is_file($viewFilePath)) {
+                return $viewFilePath;
+            }
+        }
+
+        throw new \Exception(
+            'View file is missing in '.$componentPath.'. Tried the following paths: '.implode(', ', $viewFilePaths)
+        );
     }
 
     protected function getViewFileName()
     {
-        return 'view.php';
+        return '';
     }
 
     /**

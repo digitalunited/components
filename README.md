@@ -69,6 +69,9 @@ class Text extends \DigitalUnited\Components\VcComponent
     // If you want to you can have diferent views for deferent cases.
     // If you do you can override the following method.
     //
+    // If view is not specified they will be rendered in the following
+    // order: [theme].view.php, view.php
+    //
     // default is __DIR__.'/view.php'
     protected function getViewFileName() {
         return parent::getViewFileName();
