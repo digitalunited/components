@@ -34,12 +34,27 @@ abstract class Component
     /**
      * @return array Array with which the wrapper div should have
      */
-    protected function getWrapperDivClasses()
+    private function getWrapperDivClasses()
     {
         $className = get_called_class();
         $className = str_replace('\\', '-', $className);
         $className = strtolower($className);
-        return [$className, 'du-component'];
+
+        $classes = [$className, 'du-component'];
+
+        if (isset($this->params['theme'])) {
+            $classes[] = $this->params['theme'];
+        }
+
+        return array_merge($classes, $this->getExtraWrapperDivClasses());
+    }
+
+    /**
+     * @return array Array with extra classes the wrapper div should have
+     */
+    protected function getExtraWrapperDivClasses()
+    {
+        return [];
     }
 
     private function renderTemplate()

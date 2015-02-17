@@ -81,12 +81,11 @@ class Text extends \DigitalUnited\Components\VcComponent
         return $data;
     }
     
-    // Override the classes the wrapping div will obtain.
-    // parent::getWrapperDivClasses() returns ['namespace-componentname']
-    protected function getWrapperDivClasses()
+    // Add classes to the wrapping div. Should be an array
+    // If a param named theme exists it will be added automaticly
+    protected function getExtraWrapperDivClasses()
     {
-        //You may access params through ->param
-        return $this->param('headline') ? 'has-headline' : '';
+        return $this->param('headline') ? ['has-headline'] : ['no-headline'];
     }
 
     // May be used to implement logic such as post-type registering or whatever
