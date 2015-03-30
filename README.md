@@ -112,7 +112,8 @@ class Sidebar extends \DigitalUnited\Components\Component
     protected function getDefaultParams() {
         return [
             'param1' => 'default value1',
-            'param2' => ''
+            'param2' => '',
+            'theme' => 'default',
         ];
     }
 
@@ -136,6 +137,8 @@ You may also use the component class, referenced as $component. eg:
 ```
 <?= $component->myFancyPublicFunction() ?>
 ```
+
+You may use separate view files depending on the $theme-param, if "theme" param is specified, $theme.view.php will be rendered. Default: view.php
 
 ## Less and coffe, assets
 Could be handled with with Grunt or whatever.
