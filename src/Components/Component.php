@@ -42,8 +42,12 @@ abstract class Component
 
         $classes = [$className, 'du-component'];
 
-        if (isset($this->params['theme'])) {
-            $classes[] = $this->params['theme'];
+        if ($this->param('view')) {
+            $classes[] = $this->param('view');
+        }
+
+        if ($this->param('theme')) {
+            $classes[] = $this->param('theme');
         }
 
         return array_merge($classes, $this->getExtraWrapperDivClasses());
@@ -72,6 +76,10 @@ abstract class Component
 
         $viewFilePaths = [];
         $viewFilePaths[] = $componentPath.'/'.$this->getViewFileName();
+
+        if ($this->param('view')) {
+            $viewFilePaths[] = $componentPath.'/'.$this->param('view').'.view.php';
+        }
 
         if ($this->param('theme')) {
             $viewFilePaths[] = $componentPath.'/'.$this->param('theme').'.view.php';
