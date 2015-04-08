@@ -138,7 +138,7 @@ You may also use the component class, referenced as $component. eg:
 <?= $component->myFancyPublicFunction() ?>
 ```
 
-You may use separate view files depending on the $theme-param, if "theme" param is specified, $theme.view.php will be rendered. Default: view.php
+You may use separate view files depending on the $view-param, if "view" param is specified, $view.view.php will be rendered. Default: view.php
 
 ## Less and coffe, assets
 Could be handled with with Grunt or whatever.
