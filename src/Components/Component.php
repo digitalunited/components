@@ -128,7 +128,7 @@ abstract class Component
         }
     }
 
-    private function getSanetizedParams()
+    protected function getSanetizedParams()
     {
         $params = shortcode_atts(
             $this->getDefaultParams(),
