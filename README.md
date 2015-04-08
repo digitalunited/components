@@ -70,7 +70,7 @@ class Text extends \DigitalUnited\Components\VcComponent
     // If you do you can override the following method.
     //
     // If view is not specified they will be rendered in the following
-    // order: [theme].view.php, view.php
+    // order: [view].view.php, view.php
     //
     // default is __DIR__.'/view.php'
     protected function getViewFileName() {
@@ -85,7 +85,7 @@ class Text extends \DigitalUnited\Components\VcComponent
     }
     
     // Add classes to the wrapping div. Should be an array
-    // If a param named theme exists it will be added automaticly
+    // If a param named view exists it will be added automaticly
     protected function getExtraWrapperDivClasses()
     {
         return $this->param('headline') ? ['has-headline'] : ['no-headline'];
@@ -113,7 +113,7 @@ class Sidebar extends \DigitalUnited\Components\Component
         return [
             'param1' => 'default value1',
             'param2' => '',
-            'theme' => 'default',
+            'view' => 'default',
         ];
     }
 
