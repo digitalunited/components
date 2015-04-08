@@ -72,8 +72,9 @@ abstract class Component
 
         $viewFilePaths = [];
         $viewFilePaths[] = $componentPath.'/'.$this->getViewFileName();
-        if (isset($this->params['theme'])) {
-            $viewFilePaths[] = $componentPath.'/'.$this->params['theme'].'.view.php';
+
+        if ($this->param('theme')) {
+            $viewFilePaths[] = $componentPath.'/'.$this->param('theme').'.view.php';
         }
         $viewFilePaths[] = $componentPath.'/'.'view.php';
 
@@ -110,9 +111,13 @@ abstract class Component
                 : $fallbacks['content'];
         }
 
-        return isset($this->params[$paramName])
-            ? $this->params[$paramName]
-            : $fallbacks[$paramName];
+        if (isset($this->params[$paramName])) {
+            return $this->params[$paramName];
+        } elseif (isset($fallbacks[$paramName])) {
+            return $fallbacks[$paramName];
+        } else {
+            return null;
+        }
     }
 
     private function getSanetizedParams()
