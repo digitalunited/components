@@ -70,7 +70,7 @@ class Text extends \DigitalUnited\Components\VcComponent
     // If you do you can override the following method.
     //
     // If view is not specified they will be rendered in the following
-    // order: [theme].view.php, view.php
+    // order: [view].view.php, view.php
     //
     // default is __DIR__.'/view.php'
     protected function getViewFileName() {
@@ -85,7 +85,7 @@ class Text extends \DigitalUnited\Components\VcComponent
     }
     
     // Add classes to the wrapping div. Should be an array
-    // If a param named theme exists it will be added automaticly
+    // If a param named view exists it will be added automaticly
     protected function getExtraWrapperDivClasses()
     {
         return $this->param('headline') ? ['has-headline'] : ['no-headline'];
@@ -113,7 +113,7 @@ class Sidebar extends \DigitalUnited\Components\Component
         return [
             'param1' => 'default value1',
             'param2' => '',
-            'theme' => 'default',
+            'view' => 'default',
         ];
     }
 
@@ -138,7 +138,7 @@ You may also use the component class, referenced as $component. eg:
 <?= $component->myFancyPublicFunction() ?>
 ```
 
-You may use separate view files depending on the $theme-param, if "theme" param is specified, $theme.view.php will be rendered. Default: view.php
+You may use separate view files depending on the $view-param, if "view" param is specified, $view.view.php will be rendered. Default: view.php
 
 ## Less and coffe, assets
 Could be handled with with Grunt or whatever.
