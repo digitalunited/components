@@ -38,10 +38,14 @@ class Link
             ];
         }
 
-        $maybeUnserialized = vc_build_link($linkString);
-        return array_filter($maybeUnserialized)
-            ? $maybeUnserialized
-            : ['title' => $linkString, 'url' => $linkString];
+        if (preg_match('/\|/', $linkString)) {
+            $maybeUnserialized = vc_build_link($linkString);
+            if (array_filter($maybeUnserialized)) {
+                return $maybeUnserialized;
+            }
+        }
+
+        return ['title' => $linkString, 'url' => $linkString];
     }
 
     public function renderTag($innerContent = '', $atts = [])
