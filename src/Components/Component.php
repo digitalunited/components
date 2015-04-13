@@ -42,12 +42,9 @@ abstract class Component
 
         $classes = [$className, 'du-component'];
 
-        if ($this->param('view')) {
-            $classes[] = $this->param('view');
-        }
-
-        if ($this->param('theme')) {
-            $classes[] = $this->param('theme');
+        $view = $this->param('view') ? $this->param('view') : $this->param('theme');
+        if ($view) {
+            $classes[] = str_replace('.', '-', $view);
         }
 
         return array_merge($classes, $this->getExtraWrapperDivClasses());
