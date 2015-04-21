@@ -66,10 +66,23 @@ abstract class Component
         );
     }
 
-    private function getViewPath()
+    public function renderPartial($viewName)
+    {
+        return TemplateEngine::render(
+            $this->getComponentPath().'/'.$viewName.'.view.php',
+            $this->getSanetizedParams()
+        );
+    }
+
+    private function getComponentPath()
     {
         $reflector = new \ReflectionClass(get_class($this));
-        $componentPath = dirname($reflector->getFileName());
+        return dirname($reflector->getFileName());
+    }
+
+    private function getViewPath()
+    {
+        $componentPath = $this->getComponentPath();
 
         $viewFilePaths = [];
         $viewFilePaths[] = $componentPath.'/'.$this->getViewFileName();
