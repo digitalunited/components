@@ -31,7 +31,7 @@ Every component will have their short-code registered and vc_mapping set up.
 
 A VCComponent have the following structure:
 
-```
+```php
 namespace Component;
 
 class Text extends \DigitalUnited\Components\VcComponent
@@ -103,7 +103,7 @@ class Text extends \DigitalUnited\Components\VcComponent
 A Standard component have the following structure:
 
 
-```
+```php
 namespace Component;
 
 class Sidebar extends \DigitalUnited\Components\Component
@@ -130,19 +130,19 @@ class Sidebar extends \DigitalUnited\Components\Component
 In the views, all values returned from "sanetizeDataForRendering" will be accessible.
 
 eg. ['foo' => 'bar'] will be available like
-```
+```php
 <?= $foo // outputs 'bar' ?>
 ```
 
 You may also use the component class, referenced as $component. eg:
-```
+```php
 <?= $component->myFancyPublicFunction() ?>
 ```
 
 You may use separate view files depending on the $view-param, if "view" param is specified, $view.view.php will be rendered. Default: view.php
 
 It is possible to split a view file into partials:
-```
+```php
 <?= $component->renderPartial('_listItem') // renders _listItem.view.php ?>
 ```
 
