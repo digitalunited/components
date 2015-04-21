@@ -16,7 +16,8 @@ A component folder should be placed in the theme-directory following this struct
     │   ├── component.php
     │   ├── one-or-more-less-files.less
     │   ├── one-or-more-coffee-files.coffee
-    │   └── view.php
+    │   ├── view.php
+    │   └── _somePartialView.view.php
     └── SomeOtherComponent
         ├── component.php
         ├── one-or-more-less-files.less
@@ -139,6 +140,11 @@ You may also use the component class, referenced as $component. eg:
 ```
 
 You may use separate view files depending on the $view-param, if "view" param is specified, $view.view.php will be rendered. Default: view.php
+
+It is possible to split a view file into partials:
+```
+<?= $component->renderPartial('_listItem') // renders _listItem.view.php ?>
+```
 
 ## Less and coffe, assets
 Could be handled with with Grunt or whatever.
