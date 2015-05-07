@@ -22,19 +22,28 @@ abstract class Component
 
     public function render()
     {
-        return $this->addWrapperDiv($this->renderTemplate());
+        return $this->addWrapper($this->renderTemplate());
     }
 
-    private function addWrapperDiv($innerMarkup)
+    private function addWrapper($innerMarkup)
     {
-        $classes = implode(' ', $this->getWrapperDivClasses());
-        return "<div class='{$classes}'>$innerMarkup</div>";
+        $wrapperElement = $this->getWrapperElementType();
+
+        $classes = implode(' ', $this->getWrapperClasses());
+        $role = $this->getWrapperRole() ? "role='".$this->getWrapperRole()."'" : '';
+
+        return "<{$wrapperElement} class='{$classes}' $role>$innerMarkup</{$wrapperElement}>";
+    }
+
+    protected function getWrapperElementType()
+    {
+        return 'div';
     }
 
     /**
      * @return array Array with which the wrapper div should have
      */
-    private function getWrapperDivClasses()
+    private function getWrapperClasses()
     {
         $className = get_called_class();
         $className = str_replace('\\', '-', $className);
@@ -47,15 +56,20 @@ abstract class Component
             $classes[] = str_replace('.', '-', $view);
         }
 
-        return array_merge($classes, $this->getExtraWrapperDivClasses());
+        return array_merge($classes, $this->getExtraWrapperClasses());
     }
 
     /**
      * @return array Array with extra classes the wrapper div should have
      */
-    protected function getExtraWrapperDivClasses()
+    protected function getExtraWrapperClasses()
     {
         return [];
+    }
+
+    protected function getWrapperRole()
+    {
+        return '';
     }
 
     private function renderTemplate()
@@ -187,5 +201,13 @@ abstract class Component
     public function __toString()
     {
         return $this->render();
+    }
+
+    /**
+     * @deprecated Use getExtraWrapperClasses instead
+     */
+    protected function getExtraWrapperDivClasses()
+    {
+        return $this->getExtraWrapperClasses();
     }
 }

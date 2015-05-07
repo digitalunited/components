@@ -85,11 +85,24 @@ class Text extends \DigitalUnited\Components\VcComponent
         return $data;
     }
     
-    // Add classes to the wrapping div. Should be an array
+    // If you want to change what kind of element is rendered
+    // You could override this method
+    protected function getWrapperElementType()
+    {
+        return 'div';
+    }
+
+    // Add classes to the wrapping element. Should be an array
     // If a param named view exists it will be added automaticly
-    protected function getExtraWrapperDivClasses()
+    protected function getExtraWrapperClasses()
     {
         return $this->param('headline') ? ['has-headline'] : ['no-headline'];
+    }
+
+    // Add Role attribute to the wrapper. E.g. role="banner".
+    protected function getWrapperRole()
+    {
+        return 'banner';
     }
 
     // May be used to implement logic such as post-type registering or whatever
@@ -147,5 +160,5 @@ It is possible to split a view file into partials:
 ```
 
 ## Less and coffe, assets
-Could be handled with with Grunt or whatever.
+Could be handled with with Grunt/gulp or whatever.
 See https://github.com/digitalunited/roots for example
