@@ -29,10 +29,20 @@ abstract class Component
     {
         $wrapperElement = $this->getWrapperElementType();
 
-        $classes = implode(' ', $this->getWrapperClasses());
-        $role = $this->getWrapperRole() ? "role='".$this->getWrapperRole()."'" : '';
+        $classes = $this->getWrapperClasses();
 
-        return "<{$wrapperElement} class='{$classes}' $role>$innerMarkup</{$wrapperElement}>";
+        $extraAttributes = '';
+        foreach ($this->getWrapperAttributes() as $attribute => $value) {
+            if ($attribute == 'class') {
+                $classes[] = $value;
+            } else {
+                $extraAttributes .= "$attribute=\"$value\" ";
+            }
+        }
+
+        $classes = implode(' ', $classes);
+
+        return "<{$wrapperElement} class='{$classes}' {$extraAttributes}>$innerMarkup</{$wrapperElement}>";
     }
 
     protected function getWrapperElementType()
@@ -60,16 +70,20 @@ abstract class Component
     }
 
     /**
-     * @return array Array with extra classes the wrapper div should have
+     * @return array Array with extra classes the wrapper should have
      */
     protected function getExtraWrapperClasses()
     {
         return [];
     }
 
-    protected function getWrapperRole()
+    /**
+     * @return array Assoc array with html attributes wrapper should have.
+     *               Eg. ['href' => '//example.com', 'role' => 'button']
+     */
+    protected function getWrapperAttributes()
     {
-        return '';
+        return [];
     }
 
     private function renderTemplate()

@@ -99,10 +99,11 @@ class Text extends \DigitalUnited\Components\VcComponent
         return $this->param('headline') ? ['has-headline'] : ['no-headline'];
     }
 
-    // Add Role attribute to the wrapper. E.g. role="banner".
-    protected function getWrapperRole()
+    // Add attribute to the wrapper. if 'class' is specified it will be merged in
+    // with classes from getExtraWrapperClasses
+    protected function getWrapperAttributes()
     {
-        return 'banner';
+        return ['href' => 'myhref foobar', 'role' => 'button'];
     }
 
     // May be used to implement logic such as post-type registering or whatever
