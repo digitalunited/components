@@ -9,11 +9,13 @@ class Autoloader
 {
     private $files;
     private $componentsBasePath;
+    private $childComponentsBasePath;
     private $componentClassNames;
 
     public function __construct()
     {
         $this->componentsBasePath = $this->getComponentsBasePath();
+        $this->childComponentsBasePath = $this->getChildComponentsBasePath();
         $this->files = $this->getComponentFilePaths();
         $this->componentClassNames = $this->generateComponentClassNames();
     }
@@ -26,11 +28,49 @@ class Autoloader
         return $componentsBasePath;
     }
 
+    private function getChildComponentsBasePath()
+    {
+        // Check if child theme is active
+        if (get_stylesheet_directory() === get_template_directory()) {
+            return false;
+        }
+
+        $childThemeDir = get_stylesheet_directory();
+        $childComponentsBasePath = $childThemeDir.'/components';
+
+        return $childComponentsBasePath;
+    }
+
     private function getComponentFilePaths()
     {
-        return array_map(function ($componentFolder) {
+        $componentFolderNames = $this->getComponentFolderNames();
+
+        // If child theme is active, check for components and replace with base-theme component
+        if ($this->childComponentsBasePath) {
+            $componentFilePaths = $this->getComponentFilePathsWithChilds($componentFolderNames);
+        } else {
+            $componentFilePaths = array_map(function ($componentFolder) {
+                return implode('/', [$this->componentsBasePath,$componentFolder,'component.php']);
+            }, $componentFolderNames);
+        }
+
+        return $componentFilePaths;
+    }
+
+    private function getComponentFilePathsWithChilds($baseFileFolderNames)
+    {
+        $childComponentFolderNames = $this->getChildComponentFolderNames();
+        $componentFolderNames = array_diff($baseFileFolderNames, $childComponentFolderNames);
+
+        $baseFilePaths = array_map(function ($componentFolder) {
             return implode('/', [$this->componentsBasePath,$componentFolder,'component.php']);
-        }, $this->getComponentFolderNames());
+        }, $componentFolderNames);
+
+        $childFilePaths = array_map(function ($componentFolder) {
+            return implode('/', [$this->childComponentsBasePath, $componentFolder, 'component.php']);
+        }, $childComponentFolderNames);
+
+        return array_merge($baseFilePaths, $childFilePaths);
     }
 
     private function getComponentFolderNames()
@@ -38,6 +78,18 @@ class Autoloader
         $componentFolders = [];
         foreach (glob($this->componentsBasePath.'/*', GLOB_ONLYDIR) as $absPathToFolder) {
             $componentFolders[] = basename($absPathToFolder);
+        }
+
+        return $componentFolders;
+    }
+
+    private function getChildComponentFolderNames()
+    {
+        $componentFolders = [];
+        foreach (glob($this->childComponentsBasePath.'/*', GLOB_ONLYDIR) as $absPathToFolder) {
+            if (file_exists(implode('/', [$absPathToFolder, 'component.php']))) {
+                $componentFolders[] = basename($absPathToFolder);
+            }
         }
 
         return $componentFolders;
