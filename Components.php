@@ -10,7 +10,7 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require __DIR__ . '/vendor/autoload.php';
 }
 
-load_theme_textdomain('components', get_stylesheet_directory() . '/lang');
+load_theme_textdomain('components', get_template_directory() . '/lang');
 
 $autoloader = new \DigitalUnited\Components\Autoloader();
 $autoloader->requireFiles();
