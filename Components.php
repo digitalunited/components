@@ -13,8 +13,8 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 add_action('after_setup_theme', 'initComponents');
 function initComponents()
 {
-  load_theme_textdomain('components', get_template_directory() . '/lang');
   load_child_theme_textdomain('components', get_stylesheet_directory() . '/lang');
+  load_theme_textdomain('components', get_template_directory() . '/lang');
 
   $autoloader = new \DigitalUnited\Components\Autoloader();
   $autoloader->requireFiles();
