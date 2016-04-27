@@ -37,12 +37,19 @@ abstract class VcComponent extends Component
 
     protected function getDefaultParams()
     {
-        $return = [];
-        $componentConfig = $this->getComponentConfig();
-        $params = isset($componentConfig['params']) ? $componentConfig['params'] : [];
+        $name = get_called_class();
+        $cacheGroup = 'Components/getDefaultParams';
 
-        foreach ($params as $field) {
-            $return[$this->getFieldName($field)] = $this->getFieldDefaultValue($field);
+        if ( ! $return = wp_cache_get( $name, $cacheGroup ) ) {
+
+            $componentConfig = $this->getComponentConfig();
+            $params = isset($componentConfig['params']) ? $componentConfig['params'] : [];
+    
+            foreach ($params as $field) {
+                $return[$this->getFieldName($field)] = $this->getFieldDefaultValue($field);
+            }
+
+            wp_cache_add( $name, $return, $cacheGroup);
         }
 
         return $return;
