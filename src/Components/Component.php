@@ -149,7 +149,7 @@ abstract class Component
      */
     protected function param($paramName)
     {
-        $fallbacks = $this->getDefaultParams();
+        $fallbacks = $this->getDefaultParamsNonPersistentCached();
 
         if ($paramName == 'content') {
             return $this->content
@@ -169,7 +169,7 @@ abstract class Component
     protected function getSanetizedParams()
     {
         $params = shortcode_atts(
-            $this->getDefaultParams(),
+            $this->getDefaultParamsNonPersistentCached(),
             $this->params,
             get_called_class()
         );
@@ -189,6 +189,23 @@ abstract class Component
      *                 values
      */
     abstract protected function getDefaultParams();
+    
+    /**
+     * @return array   Key value pair with acceptet params/default
+     *                 values
+     */
+    private function getDefaultParamsNonPersistentCached()
+    {
+        $name = $this->getComponentPath();
+        $cacheGroup = 'Components/getDefaultParams';
+
+        if ( ! $params = wp_cache_get( $name, $cacheGroup ) ) {
+            $params = $this->getDefaultParams();
+            wp_cache_add( $name, $params, $cacheGroup);
+        }
+
+        return $params;
+    }
 
     /**
      * Components can override this class to modify parameters
