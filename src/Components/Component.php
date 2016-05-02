@@ -203,6 +203,8 @@ abstract class Component
             $params = $this->getDefaultParams();
             wp_cache_add( $name, $params, $cacheGroup);
         }
+        
+        $params = $params ?: [];
 
         return $params;
     }
