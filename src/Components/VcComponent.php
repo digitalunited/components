@@ -7,6 +7,7 @@ abstract class VcComponent extends Component
     {
         parent::register();
         $vcMapping = $this->getVcMappingArgs();
+        $this->createContainerClassIfIsNeeded($vcMapping);
         add_action('vc_before_init', function() use ($vcMapping) {
             vc_map($vcMapping);
         });
@@ -69,5 +70,19 @@ abstract class VcComponent extends Component
     private function getValueField($field)
     {
         return empty($field['value']) ? '' : $field['value'];
+    }
+
+    /*
+     * This fugly thing exists because VC needs a class for container shortcodes in order to get the VC GUI to work.
+     * The Class must be named as following: WPBakeryShortCode_Component{ComponentName}
+     */
+    private function createContainerClassIfIsNeeded($vcMapping)
+    {
+        if (isset($vcMapping['is_container']) && $vcMapping['is_container'] === true) {
+            $className = sprintf('WPBakeryShortCode_%s', $vcMapping['base']);
+            if (!class_exists($className)) {
+                eval("class {$className} extends WPBakeryShortCodesContainer {}");
+            }
+        }
     }
 }
