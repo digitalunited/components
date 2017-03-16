@@ -32,7 +32,7 @@ class Link
 
     private function unserializeString($linkString)
     {
-        if ($linkString === '||') {
+        if ($linkString === '||' || $linkString === '|||') {
             return [
                 'url' => '',
             ];
