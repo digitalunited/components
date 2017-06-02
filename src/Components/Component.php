@@ -94,11 +94,17 @@ abstract class Component
         );
     }
 
-    public function renderPartial($viewName)
+    public function renderPartial($viewName, $params = false)
     {
+        if ($params === false) {
+            $params = $this->getSanetizedParams();
+        } else {
+            $params['component'] = &$this;
+        }
+
         return TemplateEngine::render(
             $this->getComponentPath().'/'.$viewName.'.view.php',
-            $this->getSanetizedParams()
+            $params
         );
     }
 
