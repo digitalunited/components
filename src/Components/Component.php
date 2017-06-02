@@ -7,6 +7,10 @@ abstract class Component
 
     private $params;
     private $content;
+    /*
+     * Used as a cache for getSanetizedParams()
+     */
+    private $sanitizedParams = [];
 
     public function __construct($params = [], $content = '')
     {
@@ -174,6 +178,10 @@ abstract class Component
 
     protected function getSanetizedParams()
     {
+        if (!empty($this->sanitizedParams)) {
+            return $this->sanitizedParams;
+        }
+
         $params = shortcode_atts(
             $this->getDefaultParamsNonPersistentCached(),
             $this->params,
@@ -187,7 +195,9 @@ abstract class Component
         $params['component'] = &$this;
 
         // Apply local component overrides to params
-        return $this->sanetizeDataForRendering($params);
+        $this->sanitizedParams = $this->sanetizeDataForRendering($params);
+
+        return $this->sanitizedParams;
     }
 
     /**
