@@ -160,6 +160,22 @@ It is possible to split a view file into partials:
 <?= $component->renderPartial('_listItem') // renders _listItem.view.php ?>
 ```
 
+# Performance
+When a slow registration of a component is detected the plugin will show an admin notice.
+Slow registration could be caused by by 2 reasons:
+- Dynamic population of params
+- Execution of tasks in the components main method.
+
+If the problem is due to Dynamic population of params there is an easy solution.
+Just add the following code as an early abort in the function that generates the dynamic params:
+```php
+if (!$this->shouldGenerateParams()) {
+    return [];
+}
+```
+
+It the code above doesn't help the problem probably is that code is executed in the components main function.
+
 ## Less and coffe, assets
 Could be handled with with Grunt/gulp or whatever.
 See https://github.com/digitalunited/roots for example

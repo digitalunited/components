@@ -217,6 +217,7 @@ abstract class Component
 
         if ( ! $params = wp_cache_get( $name, $cacheGroup ) ) {
             $params = $this->getDefaultParams();
+
             wp_cache_add( $name, $params, $cacheGroup);
         }
         
@@ -258,5 +259,15 @@ abstract class Component
     protected function getExtraWrapperDivClasses()
     {
         return $this->getExtraWrapperClasses();
+    }
+
+    /**
+     * Dynamic params for VC mapping should only be be generated when
+     * VC loads the edit form for the component.
+     */
+    protected function shouldGenerateParams()
+    {
+        return 'vc_edit_form' === vc_post_param('action') &&
+            $this->getShortCodeIdentifier() === vc_post_param('tag');
     }
 }

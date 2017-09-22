@@ -138,8 +138,10 @@ class Autoloader
     public function registerComponents()
     {
         foreach ($this->componentClassNames as $className) {
+            VcParamProfiler::startTimer();
             $component = new $className;
             $component->register();
+            VcParamProfiler::stopTimer($className);
         }
     }
 }
