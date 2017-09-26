@@ -30,7 +30,7 @@ class VcParamProfiler
          * Only warn if components is slower than 0.5ms
          */
         $executionTime = (microtime(true) - self::$startTime) * 1000;
-        if ($executionTime < 0.5) {
+        if ($executionTime < 0.9) {
             return;
         }
 
