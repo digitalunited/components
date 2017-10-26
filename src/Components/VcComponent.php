@@ -21,6 +21,7 @@ abstract class VcComponent extends Component
             'base' => $this->getShortCodeIdentifier(),
             'show_settings_on_create' => isset($componentConfig['params']) && count($componentConfig['params']),
             'class' => $this->generateClassName(),
+            'description' => '',
         ], $componentConfig);
     }
 
