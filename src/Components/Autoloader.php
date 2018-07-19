@@ -137,11 +137,18 @@ class Autoloader
 
     public function registerComponents()
     {
+        $config = include(get_stylesheet_directory() . '/ComponentsConfig.php');
+        $exluded = $config['excluded'];
+
         foreach ($this->componentClassNames as $className) {
-            VcParamProfiler::startTimer();
-            $component = new $className;
-            $component->register();
-            VcParamProfiler::stopTimer($className);
+            // Don't add component if it's excluded in ComponentsConfig.php
+            if (!file_exists(get_stylesheet_directory() . '/ComponentsConfig.php') ||
+                !in_array(str_replace('\\Component\\', '', $className), $exluded)) {
+                VcParamProfiler::startTimer();
+                $component = new $className;
+                $component->register();
+                VcParamProfiler::stopTimer($className);
+            }
         }
     }
 }
