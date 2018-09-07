@@ -102,7 +102,11 @@ abstract class Component
     {
         if ($params === false) {
             $params = $this->getSanetizedParams();
-        } else {
+        }
+        if (is_array($params)) {
+            $params = array_merge($this->getSanetizedParams(), $params);
+        }
+        else {
             $params['component'] = &$this;
         }
 
