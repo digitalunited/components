@@ -46,6 +46,8 @@ abstract class VcComponent extends Component
 
             $componentConfig = $this->getComponentConfig();
             $params = isset($componentConfig['params']) ? $componentConfig['params'] : [];
+
+            $return = [];
     
             foreach ($params as $field) {
                 $return[$this->getFieldName($field)] = $this->getFieldDefaultValue($field);
